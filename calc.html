@@ -1,0 +1,165 @@
+<html>
+<head>
+    <link rel="icon" type="image/icon" href="Fav/Calculator.png">
+    <title>
+        Mini Calculator
+    </title>
+    <script language="javascript">
+        var y=0;
+        function cal(val) {
+            y++;
+            if(val=='+'||val=='-'||val=='*'||val=='/')
+            y=-2;
+            if(y<=9)
+            document.getElementById("op").value+=val;
+        }
+        function evl() {
+            var x=document.getElementById("op").value;
+            var a=eval(x);
+            var digit=(Math.log10((a ^ (a >> 31)) - (a >> 31)) | 0) + 1;
+            y=digit;
+            if(a%1===0)
+             document.getElementById("op").value=`${a}`;
+            else if(a%1!=0) {
+                if(digit<=3)
+                var z=a.toFixed(7);
+                else if(digit>3)
+                var z=a.toFixed(4);
+             document.getElementById("op").value=`${z}`;
+            }
+        }
+        function clr() {
+        y=0;
+        document.getElementById("op").value="";
+        }
+    </script>
+    <style>
+            body {
+                background-color: #292929;
+                user-select: none;
+            }
+            h1{
+                text-align:center;
+                font-family: 'Courier New', Courier, monospace;
+                background: #00CDFF;
+                background: -webkit-radial-gradient(circle farthest-corner at top left, #00CDFF 0%, #0080FF 100%);
+                background: -moz-radial-gradient(circle farthest-corner at top left, #00CDFF 0%, #0080FF 100%);
+                background: radial-gradient(circle farthest-corner at top left, #00CDFF 0%, #0080FF 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-size: 35px;
+            }
+            table {
+                border: 5px solid #292929;
+                border-radius: 15px;
+                width:300px;
+                height:400px;
+                background: #292929;
+                box-shadow: 20px 20px 60px #1a1a1adc, -20px -20px 60px #3d3d3ddc;
+            }
+            .btn {
+                box-shadow:20px 20px 60px #131313dc,-20px -20px 60px #3d3d3ddc;
+                background: linear-gradient(145deg, #2c2c2c, #252525);
+                color: #eeeeee;
+                width:100%;
+                height:100%;
+                border-radius: 6px;
+                font-size: 22px;
+                transition-duration: 0.05s;
+                outline:none;
+                border:2px solid #5a5a5a;
+            }
+            .btn:hover {
+                width:94%;
+                height:94%;
+                transition-duration: 0.05s;
+            }
+            .box {
+                width:100%;
+                height:100%;
+                border-radius: 6px;
+                font-size: 20px;
+                transition-duration: 0.005s;
+                outline:none;
+                border: 0;
+            }
+            ::placeholder {
+                 color: #ffffff7e;
+                 font-size: 20px;
+                 font-weight:600;
+        }
+            #op {
+                padding-bottom: 4px;
+                font-family:'consolas';
+                padding-right: 5px;
+                background: #292929;
+                box-shadow:inset 20px 20px 60px #161616dc,inset -5px -5px 60px #3d3d3ddc;
+                color: #ffffffd8;
+                text-align: right;
+                font-size: 35;
+            }
+            .btn:active{
+                background: linear-gradient(145deg, #252525, #2c2c2c);
+                box-shadow:inset 20px 20px 60px #161616dc,inset -20px -20px 60px #3d3d3ddc;
+                width:94%;
+                height:94%;
+                transition-duration: 0.5s;
+            }
+            .b {
+                color:#2fc4ff;
+                box-shadow:20px 20px 60px #131313dc,-20px -20px 60px #3d3d3ddc;
+                font-weight: bold;
+                background: linear-gradient(145deg, #2c2c2c, #252525);
+                transition-duration: 0.5s;
+            }
+            .b:active {
+                background: linear-gradient(145deg, #252525, #2c2c2c);
+                box-shadow:inset 20px 20px 60px #161616dc,inset -20px -20px 60px #3d3d3ddc;
+                width:94%;
+                height:94%;
+                transition-duration: 0.5s;
+            }
+    </style>
+</head>
+
+<body>
+        <h1>Basic Mini Calculator</h1>
+    <br><br><br><br><br><br>
+    <center>
+        <table cellspacing="10">
+            <tr>
+                <td width="200px" height="75.5px" align="center" colspan="4"><input type="text" size="12" maxlength="12" autocomplete="off" placeholder="Write an equation&thinsp;" class="box" id="op"></td>
+            </tr>
+            <tr>
+                <th height="0px"><input type="button" class="btn b" value="&plus;" onclick="cal('+')"></th>
+                <th height="0px"><input type="button" class="btn b" value="&minus;" onclick="cal('-')"></th>
+                <th height="0px"><input type="button" class="btn b" value="&times;" onclick="cal('*')"></th>
+                <th height="0px"><input type="button" class="btn b" value="&divide;" onclick="cal('/')"></th>
+            </tr>
+            <tr>
+                <td height="0px"><input type="button" value="7" class="btn" onclick="cal('7')"></td>
+                <td height="0px"><input type="button" value="8" class="btn" onclick="cal('8')"></td>
+                <td height="0px"><input type="button" value="9" class="btn" onclick="cal('9')"></td>
+                <th height="157px" rowspan="4"><input type="button" value="&equals;" class="btn b" onclick="evl()"></th>
+            </tr>
+            <tr>
+                <td height="0px"><input type="button" value="4" class="btn" onclick="cal('4')"></td>
+                <td height="0px"><input type="button" value="5" class="btn" onclick="cal('5')"></td>
+                <td height="0px"><input type="button" value="6" class="btn" onclick="cal('6')"></td>
+            </tr>
+            <tr>
+                <td height="0px"><input type="button" value="1" class="btn" onclick="cal('1')"></td>
+                <td height="0px"><input type="button" value="2" class="btn" onclick="cal('2')"></td>
+                <td height="0px"><input type="button" value="3" class="btn" onclick="cal('3')"></td>
+            </tr>
+            <tr>
+                <td height="0px"><input type="button" value="0" class="btn" onclick="cal('0')"></td>
+                <td height="0px"><input type="button" value="." class="btn" onclick="cal('.')"></td>
+                <td height="0px"><input type="button" value="c" class="btn" onclick="clr()"></td>
+            </tr>
+        </table>
+    </center>
+</body>
+
+</html>

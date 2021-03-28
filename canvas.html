@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas</title>
+        <link rel="icon" type="image/icon" href="Fav/Pages.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <style type="text/css">
+        @font-face {
+            font-family: 'Varela Round';
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/varelaround/v13/w8gdH283Tvk__Lua32TysjIfp8uP.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+            }
+            html {
+                font-family: 'Varela Round',arial;
+                user-select: none;
+            }
+            body {
+                background: url('image2.jpg');
+                background-size: cover;
+            }
+            .head {
+                color:#ffffffb7;
+                font-weight: 500;
+                font-size: 40px;
+                text-align: center;
+                margin: 12px 0 0 0;
+                margin-left: -49.5px;
+                padding-bottom: 30px;
+            }
+            .range {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 200px;
+                height:10px;
+                background: #ffffffbd;
+                border-radius: 50px;
+                outline: none;
+                opacity:0.7;
+                transition: opacity 0.2s;
+            }   
+            .range:hover {
+                opacity:1;
+            }
+            .range::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                border-color: #00b3ff;
+                border-radius: 50px;
+                width: 20px;
+                height: 20px;
+                background: #00b3ff;
+                cursor: pointer;
+            }
+            .range::-moz-range-thumb {
+                outline: none;
+                border-radius: 50px;
+                width: 20px;
+                height: 20px;
+                background: #00b3ff;
+                cursor: pointer;
+            }
+            .range::-moz-range-progress {
+                background-color: #00d9ffe8;
+                height:10px;
+                border-radius: 50px;
+                outline: none;
+                opacity:0.7;
+                transition: opacity 0.2s;
+            }
+            #ran3 {
+                border-radius: 5px;
+                margin-bottom: 25px;
+            }
+            #ran4 {
+                border-radius: 5px;
+                margin-bottom: 25px;
+            }
+            .pad {
+                padding-left: 5px;
+                padding-right: 45px;
+            }
+            .label {
+                padding-right: 5px;
+                padding-left: 3px;
+                color:#ffffffaf;
+                font-weight: 500;
+                font-size: 16px;
+                text-align: center;
+                margin: 12px 0 25px 0;
+            }
+            .l1 {
+                color:#ffffffd0;
+            }
+            canvas {
+                background:#ffffff4d;
+                width:100%;
+                height:500px;
+                border-radius: 10px;
+            }
+            #con {
+                border: 6px solid #26beffc7;
+                background:#ffffff00;
+                width:60%;
+                height:500px;
+                border-radius: 15px;
+            }
+            .fa {
+                padding: 5px;
+                font-size: 25px;
+                width: 50px;
+                text-decoration: none;
+                outline: none;
+                transition-duration: 0.4s;
+            }
+            .fa:hover{
+                filter: saturate(3);
+                transform: scale(1.2);
+            }
+            .fa-whatsapp{
+                border:1px solid #ffffff;
+                border-radius:20px;
+                background: #25d366; 
+                color:white;
+            }
+            .fa-twitter{
+                border:1px solid #ffffff;
+                border-radius:20px;
+                background:#1da1f2;
+                color:white;
+            }
+            .fa-facebook{
+                border:1px solid #ffffff;
+                border-radius:20px;
+                background:#3b5998;
+                color:white;
+            }
+            #icons a{
+                margin:20px;
+            }
+            #down{
+                background:#ffffff00;
+                padding:7px;
+                color:#ffffff;
+                font-size: 18px;
+                font-family: 'Varela Round',Arial;
+                border:2px solid #ffffff00;
+                border-radius:20px;
+                transition-duration: 0.4s;
+                outline:none;
+                text-decoration: underline;
+            }
+            #down:hover{
+                transform:scale(1.15);
+                background:#ffffff20;
+                border:2px solid #ffffff70;
+                text-decoration: none;
+                transition-duration: 0.4s;
+            }
+            #down:active{
+                transform:scale(1.05);
+                background:#ffffff60;
+                border:2px solid #ffffffad;
+                text-decoration: none;
+                transition-duration: 0s;
+            }
+            #reset{
+                background:#ffffff00;
+                padding:7px;
+                color:white;
+                font-size: 18px;
+                font-family: 'Varela Round',Arial;
+                border:2px solid #ffffff00;
+                border-radius:20px;
+                transition-duration: 0.4s;
+                outline: none;
+                text-decoration: underline;
+            }
+            #reset:hover{
+                transform:scale(1.15);
+                background:#ffffff20;
+                border:2px solid #ffffff70;
+                text-decoration: none;
+                transition-duration: 0.4s;
+            }
+            #reset:active {
+                transform:scale(1.05);
+                background:#ffffff60;
+                border:2px solid #ffffffad;
+                text-decoration: none;
+                transition-duration: 0s;
+            }
+        </style>
+        <script language="javascript">
+            var canvas,ctx,color="#ffffff",opa=0.3;
+            function load() {
+                canvas=document.querySelector("#can");
+            ctx=canvas.getContext("2d");
+            canvas.height=500;
+            canvas.width=907.9;
+            draw=false;
+            function getMousePos(canvas, e) {
+                var box = canvas.getBoundingClientRect();
+                return {
+                    x: e.clientX - box.left,y: e.clientY - box.top
+                };
+            }
+            function start(e){
+                draw=true;
+                paint(e);                 //for individual dots
+            }
+            function finish(){
+                draw=false;
+                ctx.beginPath();          //to start individual lines
+            }
+
+            function paint(e){
+                if(!draw){
+                    return;
+                }
+                var position=getMousePos(canvas,e);
+                ctx.lineCap="round";
+                ctx.lineTo(position.x,position.y);
+                ctx.stroke();
+                ctx.moveTo(position.x,position.y);
+                
+            }
+            ran3.addEventListener("input",function(){
+                var col
+                console.log(col=ran3.value);
+                console.log(ctx.strokeStyle=col);
+            });
+            ran1.addEventListener("input",function () {
+                var Size;
+                Size = ran1.value;
+                ctx.lineWidth = Size;
+                two.innerHTML=Size;
+            });
+            ran4.addEventListener("input",function () {
+                opa=ran2.value;
+                var temp=opa;
+                temp/=100;
+                opa*=2.55;
+                var g=Math.ceil(opa);
+                var hex = g.toString(16);
+                if(temp==0)
+                hex="00";
+                color=ran4.value;
+                document.getElementsByTagName("canvas")[0].style.backgroundColor=`${color}${hex}`;
+            });
+            ran2.addEventListener("mousemove",function(){
+                opa=ran2.value;
+                var temp=opa;
+                temp/=100;
+                opa*=2.55;
+                var g=Math.ceil(opa);
+                var hex = g.toString(16);
+                if(temp==0)
+                hex="00";
+                document.getElementsByTagName("canvas")[0].style.backgroundColor=`${color}${hex}`;
+                one.innerHTML=temp.toFixed(1);
+            });
+            reset.addEventListener("click",function(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+            }); 
+            link.addEventListener("click",function(){
+                var backup=ctx.globalCompositeOperation,old=ctx.getImageData(0,0,canvas.width,canvas.height);
+                ctx.globalCompositeOperation="destination-over";
+                ctx.fillStyle=`${color}`;
+                ctx.fillRect(0,0,canvas.width,canvas.height);
+                var finalImage=canvas.toDataURL("image/png");
+                link.setAttribute('download', 'image_canvas.png');
+                link.setAttribute('href',finalImage);
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.putImageData(old,0,0);
+                ctx.globalCompositeOperation=backup;
+
+            }) 
+            var whatsapp,twitter,facebook,image=document.location.href;
+            whatsapp=document.querySelector("#what");
+            twitter=document.querySelector("#twit");
+            facebook=document.querySelector("#face"); 
+            what.addEventListener("click",function(){  
+                    console.log(what.setAttribute("href",`https://api.whatsapp.com/send?text=${image}`));
+            });
+            twit.addEventListener("click",function(){  
+                    console.log(twit.setAttribute("href",`https://twitter.com/share?url=${image}`));
+            });
+            face.addEventListener("click",function(){  
+                    console.log(face.setAttribute("href",`https://www.facebook.com/sharer.php?u=${image}`));
+            });
+            canvas.addEventListener("mousedown",start);
+            canvas.addEventListener("mouseup",finish);
+            canvas.addEventListener("mousemove",paint);
+            }
+        </script>
+    </head>
+    <body  onload="load()"> 
+        <center>
+            <h1 class="head">Canvas</h1>
+            <div style="text-align: center;">
+                <span class="pad"><label class="label">Size</label><input type="range" min="1" class="range" max="10" value="1" step="1" id="ran1"><label class="label" id="two">1</label></span>
+                <span class="pad"><label class="label">Opacity</label><input type="range" min="0" class="range" max="100" value="30" step="1" id="ran2"><label class="label" id="one">0.3</label></span>
+                <span class="pad"><label class="label" style="padding-right: 10px;">Pen Color</label><input type="color" value="#000000" id="ran3"></span>
+                <span class="pad"><label class="label" style="padding-right: 10px;">Canvas Color</label><input type="color" value="#ffffff" id="ran4"></span>
+            </div>
+            <div id="con">
+                <canvas id="can"></canvas>
+                <table style="margin-top: 10px;" align="center" cellspacing="10" cellpadding="10">
+                <tr>
+                    <th><label class="label l1" style="font-size: 20px;"><i class="material-icons" style="font-size: 23px; vertical-align: -4px;">exit_to_app</i> Action :&emsp;&hairsp; </label><a id="link"><button id="down">Download</button></a></th><th><button id="reset">Clear Pad</button></th>
+                    <th><span id="icons"><label class="label l1" style="font-size: 20px;"><i class="material-icons" style="font-size: 23px; vertical-align: -4px;">share</i> Share :&nbsp; </label><a href="#" id="what" target="_blank" class="common"><i class="fa fa-whatsapp"></i></a><a href="#" id="twit" target="_blank" class="common"><i class="fa fa-twitter"></i></a><a href="#" id="face" target="_blank" class="common"><i class="fa fa-facebook"></i></a></span></th>
+                </tr>
+            </table>
+            </div>
+        </center>
+    </body>
+</html>

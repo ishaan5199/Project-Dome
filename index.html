@@ -1,0 +1,189 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Observatory</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="icon" type="image/icon" href="Fav/aiconx.png">
+        <style type="text/css">
+            @font-face {
+            font-family: 'Varela Round';
+             font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/varelaround/v13/w8gdH283Tvk__Lua32TysjIfp8uP.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+            }
+            html {
+            user-select: none;
+            font-family: 'Varela Round',Arial;
+            }
+            body {
+                background-image: url('Dyn/day.jpg');
+                background-size: cover;
+            }
+            img {
+                height:87px;
+                padding-top:10.5%;
+            }
+            #overlay {
+                position: fixed;
+                display: block;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(to bottom right,#00000080,#00000000,#00000000);
+                cursor: pointer;
+            }
+            a {
+                background-color: #ffffff15;
+                height:110px;
+                width: 110px;
+                display: inline-block;
+                border-radius: 75px;
+                margin: 12.25% 0 0 0;
+                transition-duration: 0.3s;
+                text-align: center;
+            }
+            a:hover {
+                background-color: #ffffff40;
+                transition-duration: 0.3s;
+            }
+            .time {
+                color: #ffffffdf;
+                font-size: 80px;
+                text-align: center;
+                text-shadow: 2px 2px 10px #252525dc;
+                }
+            .text {
+                color: #ffffffe4;
+                font-weight: 500;
+                font-size: 23px;
+                text-align: center;
+                margin: 12px 0 0 0;
+                text-shadow: 2px 3px 4px #252525;
+            }
+            .t1 {
+                margin: 0px 0 0 0;
+                letter-spacing: 1px;
+                font-size: 25px;
+            }
+            .t2 {
+                color: #ffffff;
+                margin-top: 8px;
+            }
+            .btn {
+                background-color: #00000000;
+                text-decoration: underline;
+                width:91.5px;
+                height:40px;
+                font-size: 18px;
+                border-radius: 50px;
+                border: 2.5px solid #ffffff00;
+                vertical-align: middle;
+                color: #ffffff;
+                font-family: 'Varela Round',Arial;
+                outline: none;
+                transition-duration: 0.3s;
+                float:right;
+            }
+            .btn1:hover {
+                color:#ffffffd2;
+                background-color: #ffffff25;
+                border: 2.5px solid #ffffff40;
+                backdrop-filter: blur(1px);
+                transition-duration: 0.3s;
+            }
+        </style>
+        <script language="javascript">
+            var q;
+            var watch;
+            watch=setInterval(validate,1000);
+            function sign(){
+                window.open('sign.html',"_self");
+            }
+            function link() {
+                window.open('links.html',"_blank");
+            }
+        function validate() {
+                var param=window.location.search;
+                let params = new URLSearchParams(param);
+                let q = (params.get("user"));
+                var x= new Date()
+                var hh=x.getHours();
+                var mm=x.getMinutes();
+                var ss=x.getSeconds();
+                var time="AM";
+        if(q!=null) {
+            document.getElementById("sign").innerHTML=`<span class="btn" style="text-decoration:none; font-size:25px;width:150px;color:#ffffffe4;text-shadow: 2.5px 2.5px 5px rgb(30, 30, 30);">Signed In <i class="material-icons" style="font-size: 32px; vertical-align: -7px;">&#xe876;</i></span>`;
+            document.getElementById("gm").style.marginTop="4px";
+            }
+            if(q==null) {
+            q=`| Please Sign In 🡵`;
+            }
+            if(hh>=12&&hh<16){
+                document.getElementById("gm").innerText=`Good Afternoon ${q} | Welcome to the Observatory`;
+                document.getElementsByTagName("body")[0].style.backgroundImage=`url('Dyn/day.jpg')`;
+                document.getElementById("overlay").style.background = background="linear-gradient(to bottom,#00000076,#00000062,#00000086,#00000020)";
+            }
+            else if(hh>=16&&hh<17){
+                document.getElementById("gm").innerText=`Good Afternoon ${q} | Welcome to the Observatory`;
+                document.getElementsByTagName("body")[0].style.backgroundImage=`url('Dyn/late.jpg')`;
+                document.getElementById("overlay").style.background = background="linear-gradient(to right,#00000085,#00000050,#00000000)";
+            }      
+            else if(hh>=17&&hh<19){
+                document.getElementById("gm").innerText=`Good Evening ${q} | Welcome to the Observatory`;
+                document.getElementsByTagName("body")[0].style.backgroundImage=`url('Dyn/eve.jpg')`;
+                document.getElementById("overlay").style.background = background="linear-gradient(to right,#00000070,#00000060,#00000010)";
+            }    
+            else if(hh>=19){
+                document.getElementById("gm").innerText=`Have a Good Night ${q} | Welcome to the Observatory`;
+                document.getElementsByTagName("body")[0].style.backgroundImage=`url('Dyn/night.jpg')`;
+                document.getElementById("overlay").style.background = background="linear-gradient(to right,#00000040,#00000000)";
+            }    
+            else if(hh<6){
+                document.getElementById("gm").innerText=`Have a Good Night ${q} | Welcome to the Observatory`;  
+                document.getElementsByTagName("body")[0].style.backgroundImage=`url('Dyn/night.jpg')`; 
+                document.getElementById("overlay").style.background = background="linear-gradient(to right,#00000040,#00000000)";
+            }     
+            else if(hh>=6&&hh<9){
+                document.getElementById("gm").innerText=`Good Morning ${q} | Welcome to the Observatory`;
+                document.getElementsByTagName("body")[0].style.backgroundImage=`url('Dyn/sunrise.jpg')`;
+                document.getElementById("overlay").style.background = background="linear-gradient(to left,#00000070,#00000030,#00000000)";
+            }    
+            else if(hh>=9&&hh<12){
+                document.getElementById("gm").innerText=`Good Morning ${q} | Welcome to the Observatory`;
+                document.getElementsByTagName("body")[0].style.backgroundImage=`url('Dyn/day.jpg')`;
+                document.getElementById("overlay").style.background = background="linear-gradient(to bottom,#00000076,#00000062,#00000086,#00000020)";
+            }    
+                if(hh>=12&&hh<24)
+                {time="PM";
+                 if(hh!=12)
+                    hh-=12;}
+                 else
+                {if(hh==0)
+                {hh=12;
+                    time="AM";}
+                else
+                    time="AM";
+                }
+    if(mm<10)
+        document.getElementById("time").innerHTML=`${hh}:0${mm} <span style="font-size: 78px">${time}</span>`;
+    else if(mm>=1)
+        document.getElementById("time").innerHTML=`${hh}:${mm} <span style="font-size: 78px">${time}</span>`;
+    }    
+        </script>
+    </head>
+    <body onload="validate();">
+        <div id="overlay">
+        <div style="margin-top: 18px; margin-right: 18px;" id="sign"><input type="button" value="Sign in" class="btn btn1" id="btn" onclick="sign()"></div>
+        <div style="padding-bottom: 110px;"></div>
+        <div class="time" id="time">00:00:00</div>
+        <div class="text t1" id="gm">Good Morning X | Welcome to the Observatory</div>
+        <center><a href="links.html" target="_blank"><img src="https://seekicon.com/free-icon-download/safari_7.svg"></a></center>
+        <div class="text t2"><span onclick="link();">&thinsp;&hairsp;Open Dome <i class="material-icons" style="font-size: 20px; vertical-align: -2px;">&#xe89e;</i></span></div>
+    </div>   
+    </body>
+</html>
